@@ -428,13 +428,14 @@
 
         function handleSubmit() {
             var data = $('#formSubmit').serializeArray()
+            console.log(data)
             var attrs = []
             for (let i = 2; i < data.length - 2; i += 3) {
                 let temp = i
                 let attr = {
                     size: data[temp].value,
                     stock: data[temp + 1].value,
-                    price: data[temp + 1].value
+                    price: data[temp + 2].value
                 }
                 attrs.push(attr)
             }
@@ -447,14 +448,14 @@
                 attrs: attrs
             }
             console.log(product)
-            $.post("./them-product", product, (data, status) => {
-                if (status == "success") {
-                    location.assign("./danh-sach")
-                }
-                else {
-                    alert("Thêm thật bại" + status)
-                }
-            })
+            //$.post("./them-product", product, (data, status) => {
+            //    if (status == "success") {
+            //        location.assign("./danh-sach")
+            //    }
+            //    else {
+            //        alert("Thêm thật bại" + status)
+            //    }
+            //})
         }
     </script>
 </body>
