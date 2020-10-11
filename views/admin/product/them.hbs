@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html class=" ">
+
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta charset="utf-8" />
+    <title>Trang quản lý</title>
+    <!--  <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon" /> -->
+    <!-- Favicon -->
+    <link rel="apple-touch-icon-precomposed" href="/TT_Admin/assets/images/apple-touch-icon-57-precomposed.png">
+    <!-- For iPhone -->
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+        href="/TT_Admin/assets/images/apple-touch-icon-114-precomposed.png">
+    <!-- For iPhone 4 Retina display -->
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+        href="/TT_Admin/assets/images/apple-touch-icon-72-precomposed.png">
+    <!-- For iPad -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+        href="/TT_Admin/assets/images/apple-touch-icon-144-precomposed.png">
+    <!-- For iPad Retina display -->
+    <!-- CORE CSS FRAMEWORK - START -->
+    <link href="/TT_Admin/assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="/TT_Admin/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/TT_Admin/assets/plugins/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
+    <link href="/TT_Admin/assets/fonts/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="/TT_Admin/assets/css/animate.min.css" rel="stylesheet" type="/text/css" />
+    <link href="/TT_Admin/assets/plugins/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" type="text/css" />
+    <script src="https://unpkg.com/file-upload-with-preview@4.1.0/dist/file-upload-with-preview.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+        href="https://unpkg.com/file-upload-with-preview@4.1.0/dist/file-upload-with-preview.min.css" />
+    <!-- CORE CSS FRAMEWORK - END -->
+    <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
+    <link href="/TT_Admin/assets/plugins/jvectormap/jquery-jvectormap-2.0.1.css" rel="stylesheet" type="text/css"
+        media="screen" />
+    <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
+    <!-- CORE CSS TEMPLATE - START -->
+    <link href="/TT_Admin/assets/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="/TT_Admin/assets/css/responsive.css" rel="stylesheet" type="text/css" />
+    <!-- CORE CSS TEMPLATE - END -->
+</head>
+
+<body>
+    <!-- START Header -->
+    <div class='page-topbar '>
+        <div class='logo-area'>
+        </div>
+        <div class='quick-area'>
+            <div class='pull-left'>
+                <ul class="info-menu left-links list-inline list-unstyled">
+                    <li class="sidebar-toggle-wrap">
+                        <a href="javascript:;" data-toggle="sidebar" class="sidebar_toggle">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class='pull-right' id="profile-right">
+                <ul class="info-menu right-links list-inline list-unstyled">
+                    <li class="profile">
+                        <a href="#" data-toggle="dropdown" class="toggle">
+                            <img src="/img/avatar.png" alt="user-image" class="img-circle img-inline avatar">
+                            <span class="name"> <i class="fa fa-angle-down"></i></span>
+                        </a>
+                        <ul class="dropdown-menu profile animated fadeIn">
+                            {{# if login}}
+                            <li class="last">
+                                <a href="../logout">
+                                    <i class="fa fa-lock"></i>
+                                    Đăng xuất
+                                </a>
+                            </li>
+                            {{/if}}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- END Header -->
+
+    <!-- START CONTAINER -->
+    <div class="page-container row-fluid container-fluid">
+
+        <!-- Menu START -->
+        <div class="page-sidebar pagescroll">
+            <!-- MAIN MENU - START -->
+            <div class="page-sidebar-wrapper" id="main-menu-wrapper">
+                <!-- USER INFO - START -->
+                <div class="profile-info row">
+                    <div class="profile-image col-xs-4">
+                        <img alt="" src="/img/avatar.png" class="img-responsive img-circle avatar">
+                        </a>
+                    </div>
+                    <div class="profile-details col-xs-8">
+                        <h3>
+                            <a class="name">{{user.email}}</a>
+                            <!-- Available statuses: online, idle, busy, away and offline -->
+                            <span class="profile-status online"></span>
+                        </h3>
+                        <p class="profile-title">Web dành cho nhà phát triển</p>
+                    </div>
+                </div>
+                <!-- USER INFO - END -->
+                <ul class='wraplist'>
+                    <li class='menusection'>Menu</li>
+                    <li class="open">
+                        <a href="/admin">
+                            <i class="fa fa-dashboard"></i>
+                            <span class="title">Thống kê</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="javascript:;">
+                            <i class="fa fa-suitcase"></i>
+                            <span class="title">Thể loại</span>
+                            <span class="arrow "></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a class="" href="/admin/cate/danh-sach">Danh Sách</a>
+                            </li>
+                            <li>
+                                <a class="" href="/admin/cate/them-cate">Thêm</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="">
+                        <a href="javascript:;">
+                            <i class="fa fa-suitcase"></i>
+                            <span class="title">Sản Phẩm</span>
+                            <span class="arrow "></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a class="" href="./danh-sach">Danh Sách</a>
+                            </li>
+                            <li>
+                                <a class="" href="./them-product">Thêm</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="">
+                        <a href="javascript:;">
+                            <i class="fa fa-suitcase"></i>
+                            <span class="title">Đơn Hàng</span>
+                            <span class="arrow "></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a class="" href="../cart/danh-sach">Danh Sách</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="">
+                        <a href="javascript:;">
+                            <i class="fa fa-suitcase"></i>
+                            <span class="title">Tài Khoản</span>
+                            <span class="arrow "></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a class="" href="../user/danh-sach">Danh Sách</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- MAIN MENU - END -->
+        </div>
+        <!--  Menu END -->
+
+        <!-- Thêm SP START -->
+        <section id="main-content" class=" ">
+            <section class="wrapper main-wrapper row" style=''>
+                <div class='col-xs-12'>
+                    <div class="page-title">
+                        <div class="pull-left">
+                            <h1 class="title">Thêm Sản Phẩm</h1>
+                        </div>
+                        <div class="pull-right hidden-xs">
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-xs-12">
+                    <section class="box ">
+                        <header class="panel_header">
+                            <h2 class="title pull-left">Thông Tin</h2>
+                            <div class="actions panel_actions pull-right">
+                                <a class="box_toggle fa fa-chevron-down"></a>
+                                <a class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></a>
+                                <a class="box_close fa fa-times"></a>
+                            </div>
+                        </header>
+                        <div class="content-body">
+                            <div class="row">
+                                {{#if succsess_msg }}
+                                <div class="alert alert-info">
+                                    <p>{{succsess_msg}}</p>
+                                </div>
+                                {{/if}}
+                                {{#if hasErrors}}
+                                <div class="alert alert-info">
+                                    {{# each messages}}
+                                    <p>{{this}}</p>
+                                    {{/each}}
+                                </div>
+                                {{/if}}
+                                {{!-- action="./them-product" method="post" enctype="multipart/form-data"--}}
+                                <form id="formSubmit">
+                                    <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                        <div class="form-group">
+                                            <label class="form-label" for="field-120334">Tên sản phẩm</label>
+                                            <span class="desc"></span>
+                                            <div class="controls">
+                                                <input type="text" id="name" value="" class="form-control" name="name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                        <div class="form-group">
+                                            <label class="form-label" for="field-120334">Thương hiệu</label>
+                                            <span class="desc"></span>
+                                            <div class="controls">
+                                                <input type="text" id="brand" value="" class="form-control" name="name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="custom-file-container col-xs-12 col-sm-9 col-md-8 padding-bottom-30"
+                                        data-upload-id="myUniqueUploadId">
+                                        <label>Ảnh sản phẩm
+                                            <a href="javascript:void(0)" class="custom-file-container__image-clear"
+                                                title="Xóa tất cả các ảnh">&times;</a></label>
+
+                                        <label class="custom-file-container__custom-file">
+                                            <input type="file"
+                                                class="custom-file-container__custom-file__custom-file-input"
+                                                accept="image/*" multiple aria-label="Choose File" />
+                                            <span
+                                                class="custom-file-container__custom-file__custom-file-control"></span>
+                                        </label>
+                                        <div class="custom-file-container__image-preview"></div>
+                                    </div>
+                                    {{!-- Dynamic form --}}
+                                    <div id="dynamic_form" class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                        <div class="form-group">
+                                            <label class="form-label" for="field-120334">Thuộc tính</label>
+                                            <div class="row">
+                                                <div class="controls col-sm-4">
+                                                    <input type="text" name="size" id="size" placeholder="nhập vào size"
+                                                        class="form-control">
+                                                </div>
+                                                <div class="controls col-sm-4">
+                                                    <input type="text" name="stock" id="stock" placeholder="Số lượng"
+                                                        class="form-control">
+                                                </div>
+                                                <div class="controls col-sm-4">
+                                                    <input type="text" name="price" id="price" class="form-control"
+                                                        placeholder="Giá">
+                                                </div>
+                                                <div class="button-group col-sm-4">
+                                                    <a href="javascript:void(0)" class="btn btn-primary"
+                                                        id="plus">Thêm</a>
+                                                    <a href="javascript:void(0)" class="btn btn-danger"
+                                                        id="minus">Xóa</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{!-- End Dynamic form --}}
+                                    <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                        <div class="form-group">
+                                            <label class="form-label" for="field-120334">Thể Loại</label>
+                                            <span class="desc"></span>
+                                            <div class="controls">
+                                                <select class="form-control" id="cate" name="cate">
+                                                    {{#each cate}}
+                                                    <option key="{{this._id}}" value="{{this._id}}">{{this.name}}
+                                                    </option>
+                                                    {{/each}}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                        <div class="form-group">
+                                            <label class="form-label" for="field-120334">Chi Tiết Sản Phẩm</label>
+                                            <span class="desc"></span>
+                                            <div class="controls">
+                                                <textarea name="des" id="des" class="form-control autogrow"
+                                                    cols="5"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                    <div class="text-left">
+                                        <button onclick="handleSubmit()" class="btn btn-info">Lưu</button>
+                                        <a href="/admin/product/danh-sach" type="button" class=" btn" class="btn">Quay
+                                            Lại</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </section>
+        <!--  Thêm SP END -->
+        <div class="chatapi-windows ">
+        </div>
+    </div>
+    <!-- END CONTAINER -->
+
+    <!-- LOAD FILES AT PAGE END FOR FASTER LOADING -->
+    <!-- CORE JS FRAMEWORK - START -->
+    <script src="/TT_Admin/assets/js/jquery-1.11.2.min.js" type="text/javascript"></script>
+    <script src="/TT_Admin/assets/js/jquery.easing.min.js" type="text/javascript"></script>
+    <script src="/TT_Admin/assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/TT_Admin/assets/plugins/pace/pace.min.js" type="text/javascript"></script>
+    <script src="/TT_Admin/assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js" type="text/javascript"></script>
+    <script src="/TT_Admin/assets/plugins/viewport/viewportchecker.js" type="text/javascript"></script>
+    <script src="/TT_Admin/assets/js/dynamic-form.js" type="text/javascript"></script>
+    <script>window.jQuery || document.write('<script src="TT_Admin/assets/js/jquery-1.11.2.min.js"><\/script>');</script>
+    <!-- CORE JS FRAMEWORK - END -->
+    <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
+    <script src="/TT_Admin/assets/plugins/echarts/echarts-custom-for-dashboard.js" type="text/javascript"></script>
+    <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
+    <!-- CORE TEMPLATE JS - START -->
+    <script src="/TT_Admin/assets/js/scripts.js" type="text/javascript"></script>
+    <!-- END CORE TEMPLATE JS - END -->
+    <!-- General section box modal start -->
+
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.3/firebase-storage.js"></script>
+
+
+    <script>
+        $("#dynamic_form").dynamicForm("#dynamic_form", "#plus", "#minus", {
+            limit: 50,
+            normalizeFullForm: false,
+            duration: 3000,
+        });
+
+    </script>
+
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyDHLGN58Ld2gtTao7PMwMElYrQDLA54SGE",
+            authDomain: "content-delivery-b57b7.firebaseapp.com",
+            databaseURL: "https://content-delivery-b57b7.firebaseio.com",
+            projectId: "content-delivery-b57b7",
+            storageBucket: "content-delivery-b57b7.appspot.com",
+            messagingSenderId: "128698018952",
+            appId: "1:128698018952:web:f24100d93f50479c4e033d",
+            measurementId: "G-B6HSP9FD8M"
+        }
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        var upload = new FileUploadWithPreview("myUniqueUploadId", {
+            showDeleteButtonOnImages: true,
+            text: {
+                chooseFile: "Chọn file ảnh",
+                browse: "Chọn",
+                selectedCount: "Ảnh được chọn",
+            },
+        });
+        var imagesURL = []
+
+        window.addEventListener('fileUploadWithPreview:imagesAdded', function (e) {
+            console.log(e)
+            if (e.detail.uploadId === "myUniqueUploadId") {
+                for (let i = 0; i < e.detail.files.length; i++) {
+                    uploadFile(e.detail.files[i])
+                }
+            }
+        })
+
+        window.addEventListener('fileUploadWithPreview:imageDeleted', function (e) {
+            console.log(e.detail.index)
+            console.log(imagesURL)
+            imagesURL.splice(e.detail.index, 1)
+            console.log(imagesURL)
+        })
+
+
+        async function uploadFile(file) {
+            console.log("hàm upload được gọi" + file)
+            var uploadTask = firebase.storage().ref(`images/${file.name}`).put(file);
+            await uploadTask.on(
+                firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+                function (snapshot) {
+                    switch (snapshot.state) {
+                        case firebase.storage.TaskState.PAUSED: // or 'paused'
+                            console.log('Upload is paused');
+                            break;
+                        case firebase.storage.TaskState.RUNNING: // or 'running'
+                            console.log('Upload is running');
+                            break;
+                    }
+                },
+                function (error) {
+                    switch (error.code) {
+                        case 'storage/unauthorized':
+                            break;
+
+                        case 'storage/canceled':
+                            break;
+                        case 'storage/unknown':
+                            break;
+                    }
+                },
+                function () {
+                    uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+                        console.log('Upload Done ! URL: ', downloadURL);
+                        imagesURL.push({ img: downloadURL })
+                    });
+                }
+            );
+        }
+
+        function handleSubmit() {
+            var data = $('#formSubmit').serializeArray()
+            var attrs = []
+            for (let i = 2; i < data.length - 2; i += 3) {
+                let temp = i
+                let attr = {
+                    size: data[temp].value,
+                    stock: data[temp + 1].value,
+                    price: data[temp + 1].value
+                }
+                attrs.push(attr)
+            }
+            var product = {
+                name: data[0].value,
+                brand: data[1].value,
+                productImages: imagesURL,
+                description: data[data.length - 1].value,
+                categoryId: data[data.length - 2].value,
+                attrs: attrs
+            }
+            console.log(product)
+            $.post("./them-product", product, (data, status) => {
+                if (status == "success") {
+                    location.assign("./danh-sach")
+                }
+                else {
+                    alert("Thêm thật bại" + status)
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>
