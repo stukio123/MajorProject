@@ -29,6 +29,9 @@
     <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
     <link href="/TT_Admin/assets/plugins/jvectormap/jquery-jvectormap-2.0.1.css" rel="stylesheet" type="text/css"
         media="screen" />
+    <script src="https://unpkg.com/file-upload-with-preview@4.1.0/dist/file-upload-with-preview.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+        href="https://unpkg.com/file-upload-with-preview@4.1.0/dist/file-upload-with-preview.min.css" />
     <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
     <!-- CORE CSS TEMPLATE - START -->
     <link href="/TT_Admin/assets/css/style.css" rel="stylesheet" type="text/css" />
@@ -114,10 +117,10 @@
                         </a>
                         <ul class="sub-menu">
                             <li>
-                                <a class="" href="/admin/cate/danh-sach.html">Danh Sách</a>
+                                <a class="" href="/admin/cate/danh-sach">Danh Sách</a>
                             </li>
                             <li>
-                                <a class="" href="/admin/cate/them-cate.html">Thêm</a>
+                                <a class="" href="/admin/cate/them-cate">Thêm</a>
                             </li>
                         </ul>
                     </li>
@@ -129,10 +132,10 @@
                         </a>
                         <ul class="sub-menu">
                             <li>
-                                <a class="" href="/admin/product/danh-sach.html">Danh Sách</a>
+                                <a class="" href="/admin/product/danh-sach">Danh Sách</a>
                             </li>
                             <li>
-                                <a class="" href="/admin/product/them-product.html">Thêm</a>
+                                <a class="" href="/admin/product/them-product">Thêm</a>
                             </li>
                         </ul>
                     </li>
@@ -145,7 +148,7 @@
                         </a>
                         <ul class="sub-menu">
                             <li>
-                                <a class="" href="/admin/cart/danh-sach.html">Danh Sách</a>
+                                <a class="" href="/admin/cart/danh-sach">Danh Sách</a>
                             </li>
                         </ul>
                     </li>
@@ -157,7 +160,7 @@
                         </a>
                         <ul class="sub-menu">
                             <li>
-                                <a class="" href="/admin/user/danh-sach.html">Danh Sách</a>
+                                <a class="" href="/admin/user/danh-sach">Danh Sách</a>
                             </li>
                         </ul>
                     </li>
@@ -206,51 +209,117 @@
                                     {{/each}}
                                 </div>
                                 {{/if}}
-                                <form action="./sua-product.html" method="post" enctype="multipart/form-data">
+                                <form id="formSubmit">
                                     <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
                                         <div class="form-group">
                                             <label class="form-label" for="field-120334">Tên sản phẩm</label>
                                             <span class="desc"></span>
                                             <div class="controls">
-                                                <input type="text" id="name" value="{{product.title}}"
+                                                <input type="text" id="name" value="{{product.name}}"
                                                     class="form-control" name="name">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
                                         <div class="form-group">
-                                            <label class="form-label" for="field-120334">Hình</label>
-                                            <span class="desc"></span><br />
-                                            <img src="/upload/{{product.imagePath}}" width="200px">
-                                            <div class="controls">
-                                                <input type="file" id="hinh" value="" required="required"
-                                                    class="form-control" name="hinh">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
-                                        <div class="form-group">
-                                            <label class="form-label" for="field-120334">Giá</label>
+                                            <label class="form-label" for="field-120334">Thương hiệu</label>
                                             <span class="desc"></span>
                                             <div class="controls">
-                                                <input type="number" id="gia" value="{{product.price}}" min="0"
-                                                    class="form-control" name="gia">
+                                                <input type="text" id="brand" value="{{product.brand}}"
+                                                    class="form-control" name="name">
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="custom-file-container col-xs-12 col-sm-9 col-md-8 padding-bottom-30"
+                                        data-upload-id="myUniqueUploadId">
+                                        <label>Ảnh sản phẩm
+                                            <a href="javascript:void(0)" class="custom-file-container__image-clear"
+                                                title="Xóa tất cả các ảnh">&times;</a></label>
+
+                                        <label class="custom-file-container__custom-file">
+                                            <input type="file"
+                                                class="custom-file-container__custom-file__custom-file-input"
+                                                accept="image/*" multiple aria-label="Choose File" />
+                                            <span
+                                                class="custom-file-container__custom-file__custom-file-control"></span>
+                                        </label>
+                                        <div class="custom-file-container__image-preview"></div>
+                                    </div>
+                                    {{!-- Dynamic form --}}
+                                    {{!-- <div id="dynamic_form" class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                        <div class="form-group">
+                                            <label class="form-label" for="field-120334">Thuộc tính</label>
+                                            <div id="" class="row">
+                                                <div class="controls col-sm-4">
+                                                    <input type="text" name="size" id="size" placeholder="nhập vào size"
+                                                        class="form-control">
+                                                </div>
+                                                <div class="controls col-sm-4">
+                                                    <input type="text" name="stock" id="stock" placeholder="Số lượng"
+                                                        class="form-control">
+                                                </div>
+                                                <div class="controls col-sm-4">
+                                                    <input type="text" name="price" id="price" class="form-control"
+                                                        placeholder="Giá">
+                                                </div>
+                                                <div class="button-group col-sm-4">
+                                                    <a href="javascript:void(0)" class="btn btn-primary"
+                                                        id="plus">Thêm</a>
+                                                    <a href="javascript:void(0)" class="btn btn-danger"
+                                                        id="minus">Xóa</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> --}}
+
+                                    <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                        <div class="multi-field-wrapper">
+                                            <div class="multi-fields form-group">
+                                                {{#each product.attrs}}
+                                                <div class="multi-field row">
+                                                    <div class="controls col-sm-3">
+                                                        <input type="text" name="size" id="size" class="form-control"
+                                                            placeholder="kích cỡ" value="{{this.size}}">
+                                                    </div>
+                                                    <div class="controls col-sm-3">
+                                                        <input type="text" name="stock" id="stock" class="form-control"
+                                                            placeholder="Số lượng" value="{{this.stock}}">
+                                                    </div>
+                                                    <div class="controls col-sm-3">
+                                                        <input type="text" name="price" id="price" class="form-control"
+                                                            placeholder="Giá" value="{{this.price}}">
+                                                    </div>
+                                                    <div class="controls col-sm-3">
+                                                        <button type="button" class="remove-field">Xóa</button>
+                                                    </div>
+                                                </div>
+                                                {{/each}}
+                                            </div>
+                                            <button type="button" class="add-field">Thêm</button>
+                                        </div>
+                                    </div>
+
+                                    {{!-- End Dynamic form --}}
                                     <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
                                         <div class="form-group">
                                             <label class="form-label" for="field-120334">Thể Loại</label>
                                             <span class="desc"></span>
                                             <div class="controls">
                                                 <select class="form-control" id="cate" name="cate">
-                                                    {{# each cate}}
-                                                    <option value="{{this._id}}">{{this.ten}}</option>
+                                                    {{#each cate}}
+                                                    {{#if (ifEqual this._id ../product.categoryId)}}
+                                                    <option selected key="{{this._id}}" value="{{this._id}}">
+                                                        {{this.name}}</option>
+                                                    {{else}}
+                                                    <option key="{{this._id}}" value="{{this._id}}">
+                                                        {{this.name}}</option>
+                                                    {{/if}}
                                                     {{/each}}
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
                                         <div class="form-group">
                                             <label class="form-label" for="field-120334">Chi Tiết Sản Phẩm</label>
@@ -261,15 +330,14 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
-                                        <div class="text-left">
-                                            <button type="submit" class="btn btn-info">Lưu</button>
-                                            <a href="/admin/product/danh-sach.html" type="button" class=" btn"
-                                                class="btn">Quay Lại</a>
-                                        </div>
-                                    </div>
                                 </form>
+                                <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                                    <div class="text-left">
+                                        <button onclick="handleSubmit()" class="btn btn-info">Lưu</button>
+                                        <a href="/admin/product/danh-sach" type="button" class=" btn" class="btn">Quay
+                                            Lại</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </section>
@@ -297,8 +365,169 @@
     <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
     <!-- CORE TEMPLATE JS - START -->
     <script src="/TT_Admin/assets/js/scripts.js" type="text/javascript"></script>
+    <script src="/TT_Admin/assets/js/dynamic-form.js" type="text/javascript"></script>
     <!-- END CORE TEMPLATE JS - END -->
     <!-- General section box modal start -->
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.3/firebase-storage.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.js"></script>
+
+
+    <script>
+        //var data = {{{ convert product.attrs }}}
+        //console.log(data)
+        //$("#dynamic_form").dynamicForm("#dynamic_form", "#plus", "#minus", {
+        //    limit: 50,
+        //    normalizeFullForm: false,
+        //    duration: 3000,
+        //    data: { data }
+        //});
+        $('.multi-field-wrapper').each(function () {
+            var $wrapper = $('.multi-fields', this);
+            $(".add-field", $(this)).click(function (e) {
+                $('.multi-field:first-child', $wrapper).clone(true).appendTo($wrapper).find('input').val('');
+            });
+            $('.multi-field .remove-field', $wrapper).click(function (e) {
+                if ($('.multi-field', $wrapper).length > 1) {
+                    $(this).parent().parent('.multi-field').remove();
+                }
+            });
+        });
+    </script>
+
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyDHLGN58Ld2gtTao7PMwMElYrQDLA54SGE",
+            authDomain: "content-delivery-b57b7.firebaseapp.com",
+            databaseURL: "https://content-delivery-b57b7.firebaseio.com",
+            projectId: "content-delivery-b57b7",
+            storageBucket: "content-delivery-b57b7.appspot.com",
+            messagingSenderId: "128698018952",
+            appId: "1:128698018952:web:f24100d93f50479c4e033d",
+            measurementId: "G-B6HSP9FD8M"
+        }
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        var imgArray = []
+        var dataProduct = {{{ convert product }}}
+        var ObjArray = {{{ convert product.productImages }}}
+        for (let i of ObjArray) {
+            imgArray.push(i.img)
+        }
+        console.log(imgArray)
+
+
+
+        var upload = new FileUploadWithPreview("myUniqueUploadId", {
+            showDeleteButtonOnImages: true,
+            text: {
+                chooseFile: "Chọn file ảnh",
+                browse: "Chọn",
+                selectedCount: "Ảnh được chọn",
+            },
+            //presetFiles: imgArray
+        });
+        upload.addImagesFromPath(imgArray)
+        console.log(upload)
+
+        var imagesURL = []
+
+        window.addEventListener('fileUploadWithPreview:imagesAdded', function (e) {
+            console.log(e)
+            if (e.detail.uploadId === "myUniqueUploadId") {
+                const regex = new RegExp(/(\w?\:?\\?[\w\-_ \\]*\\+)?([\w-_ ]+)?(\.[\w-_ ]+)/, 'i');
+                console.log(e.detail.cachedFileArray)
+                for (let i of e.detail.files) {
+                    if (i.name.includes("images%2F")) {
+                        let regName = i.name.match(regex)[0]
+                        i.name = regName.slice(2, regName.length)
+                    }
+                    uploadFile(i)
+                }
+            }
+        })
+
+        window.addEventListener('fileUploadWithPreview:imageDeleted', function (e) {
+            console.log(e.detail.index)
+            console.log(imagesURL)
+            imagesURL.splice(e.detail.index, 1)
+            console.log(imagesURL)
+        })
+
+
+        async function uploadFile(file) {
+            console.log("hàm upload được gọi" + file)
+            var uploadTask = firebase.storage().ref(`images/${file.name}`).put(file);
+            await uploadTask.on(
+                firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+                function (snapshot) {
+                    switch (snapshot.state) {
+                        case firebase.storage.TaskState.PAUSED: // or 'paused'
+                            console.log('Upload is paused');
+                            break;
+                        case firebase.storage.TaskState.RUNNING: // or 'running'
+                            console.log('Upload is running');
+                            break;
+                    }
+                },
+                function (error) {
+                    switch (error.code) {
+                        case 'storage/unauthorized':
+                            break;
+
+                        case 'storage/canceled':
+                            break;
+                        case 'storage/unknown':
+                            break;
+                    }
+                },
+                function () {
+                    uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+                        console.log('Upload Done ! URL: ', downloadURL);
+                        imagesURL.push({ img: downloadURL })
+                    });
+                }
+            );
+        }
+
+        function handleSubmit() {
+            var data = $('#formSubmit').serializeArray()
+            console.log(data)
+            var attrs = []
+            for (let i = 2; i < data.length - 2; i += 3) {
+                let temp = i
+                let attr = {
+                    size: data[temp].value,
+                    stock: data[temp + 1].value,
+                    price: data[temp + 2].value
+                }
+                attrs.push(attr)
+            }
+            var product = {
+                name: data[0].value,
+                brand: data[1].value,
+                productImages: imagesURL,
+                description: data[data.length - 1].value,
+                categoryId: data[data.length - 2].value,
+                attrs: attrs
+            }
+            console.log(product)
+            $.post("./sua-product", product, (data, status) => {
+                console.log(status)
+                if (status == "success") {
+                    alert("Thêm thành công !")
+                    location.assign("./danh-sach")
+                }
+                else {
+                    alert("Thêm thật bại" + status)
+                }
+            })
+        }
+
+    </script>
 </body>
 
 </html>

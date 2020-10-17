@@ -28,20 +28,27 @@
 				<div class="s_product_text">
 					<h3>{{this.name}}</h3>
 					<h2>{{currency this.attrs.0.price}}</h2>
-					<div>
-						<form id="addToCart" method="POST">
-							<input type="hidden" name="size">
-							<input type="hidden" name="quantity">
-							<input type="hidden" name="price">
+					<div class="row">
+						<form id="form_AddToCart" class="col-lg-8">
+							<select name="attr" id="attributes">
+								<option>Chọn size của bạn</option>
+								{{#each this.attrs}}
+								<option data-value="{{convert this}}">
+									<p class="text-left">{{this.size}}</p>
+									<p class="text-right">{{currency this.price}}</p>
+								</option>
+								{{/each}}
+							</select>
+							<input type="hidden" name="size" id="size">
+							<input type="hidden" name="quantity" id="quantity" value="1">
+							<input type="hidden" name="price" id="price">
 						</form>
 					</div>
-					<ul class="list">
-						<li><a href="#"><span>Tình trạng</span> : Còn hàng</a></li>
-					</ul>
-					<p>{{this.description }}</p>
-					<div class="card_area d-flex align-items-center">
-						<a class="primary-btn" href="/them-vao-gio-hang/{{this._id}}">Thêm vào giỏ hàng</a>
+					<div class="card_area d-flex align-items-center mx-auto">
+						<button class="primary-btn add-to-cart" data-id="{{this._id}}">Thêm vào giỏ hàng</button>
 					</div>
+
+					<p>{{this.description}}</p>
 				</div>
 			</div>
 		</div>

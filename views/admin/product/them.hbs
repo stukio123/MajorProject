@@ -450,6 +450,7 @@
             console.log(product)
             $.post("./them-product", product, (data, status) => {
                 if (status == "success") {
+                    alert("Thêm thành công !")
                     location.assign("./danh-sach")
                 }
                 else {

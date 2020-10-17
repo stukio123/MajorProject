@@ -20,7 +20,7 @@ const productsSchema = mongooes.Schema(
     },
     attrs: [
       {
-        size: { type: String, require: true },
+        size: { type: String, require: true, unique: true},
         stock: { type: Number, default: 1 },
         price: { type: Number, require: true, default: 0 },
         locale: { type: String, require: true },

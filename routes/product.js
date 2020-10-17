@@ -44,7 +44,57 @@ router.post("/them-product", isLoggedIn, function (req, res) {
   });
   pro.save().then(function () {
     req.flash("succsess_msg", "Đã Thêm Thành Công");
-    res.redirect("/admin/product/them-product");
+  });
+});
+
+router.get("/:id/sua-product", function (req, res) {
+  Product.findById(req.params.id).then(function (data) {
+    Category.find().then(function (cate) {
+      res.render("admin/product/sua", {
+        errors: null,
+        product: data,
+        cate: cate,
+        layout: false,
+      });
+    });
+  });
+});
+
+router.post("/:id/sua-product", function (req, res) {
+  const {
+    name,
+    brand,
+    productImages,
+    attrs,
+    categoryId,
+    description,
+  } = req.body;
+  const _id = req.params.id;
+  const img = productImages[0].img;
+  let data = {
+    name: name,
+    brand: brand,
+    slug: slugify(req.body.name, {
+      remove: /[*+~.()"!:@]\'\&\s/gm,
+      lower: true,
+      strict: true,
+      replacement: "-",
+      locale: "vi",
+    }),
+    attrs: attrs,
+    productImages: productImages,
+    mainImage: img,
+    categoryId: categoryId,
+    description: description,
+  };
+  Product.findByIdAndUpdate({ _id }, data, { new: true }, (error) => {
+    if (error) {
+      req.flash("hasErrors", "Lỗi khi sửa sản phẩm");
+      console.log(error);
+    } else {
+      req.flash("succsess_msg", "Sửa thành công");
+      console.log("Sửa thành công")
+    }
   });
 });
 

@@ -3,6 +3,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const cors = require("cors");
 const bodyParser = require("body-parser");
 const expressHbs = require("express-handlebars");
 const handlebars = require("handlebars");
@@ -24,6 +25,8 @@ const usersRouter = require("./routes/users");
 const productRouter = require("./routes/product");
 const adminRouter = require("./routes/admin");
 const categoryRouter = require("./routes/category");
+const cartRouter = require("./routes/cart");
+const Cart = require("./models/cart");
 
 const app = express();
 
@@ -38,10 +41,10 @@ const hbs = expressHbs.create({
     },
     ifEqual: (arg1, arg2, options) => {
       if (arg1 == arg2) {
-        console.log(arg1 == arg2)
-        return true//options.inverse(this);
+        console.log(arg1 == arg2);
+        return true; //options.inverse(this);
       } else {
-        return false//options.fn(this);
+        return false; //options.fn(this);
       }
     },
     test: (arg1, arg2) => {
@@ -49,10 +52,9 @@ const hbs = expressHbs.create({
       console.log(arg2);
     },
     convert: (something) => {
-      if(!something)
-        return 
-      return JSON.stringify(something)
-    }
+      if (!something) return;
+      return JSON.stringify(something);
+    },
   },
   defaultLayout: "layout",
   extname: "hbs",
@@ -62,10 +64,12 @@ app.engine(".hbs", hbs.engine);
 //app.set('views', path.join(__dirname, 'views'));
 app.set("view engine", "hbs");
 
+app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(validator());
+app.use(cors());
 app.use(
   session({
     secret: "nothingtostore",
@@ -81,6 +85,13 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {
+  var cart = new Cart(req.session.cart ? req.session.cart : {});
+  req.session.cart = cart;
+  res.locals.totalQuantity = cart.totalQuantity;
+  next();
+});
+
+app.use((req, res, next) => {
   res.locals.login = req.isAuthenticated();
   res.locals.session = req.session;
   res.locals.succsess_msg = req.flash("succsess_msg");
@@ -92,7 +103,7 @@ app.use("/", indexRouter);
 app.use("/user", usersRouter);
 app.use("/admin", adminRouter);
 app.use("/admin/cate", categoryRouter);
-app.use("/admin/product",productRouter)
+app.use("/admin/product", productRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

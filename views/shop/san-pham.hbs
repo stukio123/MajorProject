@@ -21,8 +21,7 @@
 					<ul class="main-categories">
 						{{#each cates}}
 						<li class="main-nav-list">
-							<a href="/cate/{{slug}}" aria-expanded="true"
-								aria-controls="fruitsVegetable"> {{name}}</a>
+							<a href="/cate/{{slug}}" aria-expanded="true" aria-controls="fruitsVegetable"> {{name}}</a>
 							{{/each}}
 						</li>
 					</ul>
@@ -38,27 +37,25 @@
 					<div class="row">
 						{{#each products}}
 						<!-- single product -->
-						<div class="col-lg-4 col-md-6">
-							<div class="single-product">
-								<img class="img-fluid" src="{{mainImage}}" alt="{{slug}}">
-								<div class="product-details">
-									<h6>{{name}}</h6>
-									<div class="price">
-										<h6>{{currency attrs.0.price}}</h6>
-									</div>
-									<div class="prd-bottom">
-										<a href="/them-vao-gio-hang/{{slug}}" class="social-info islogin">
-											<span class="ti-bag"></span>
-											<p class="hover-text">Thêm vào giỏ </p>
-										</a>
-										<a href="/chi-tiet/{{slug}}" class="social-info">
-											<span class="lnr lnr-move"></span>
-											<p class="hover-text">Xem chi tiết</p>
-										</a>
+						<a href="/chi-tiet/{{this.slug}}">
+							<div class="col-lg-4 col-md-6">
+								<div class="single-product">
+									<img class="img-fluid" src="{{this.mainImage}}" alt="">
+									<div class="product-details">
+										<h6>{{this.name}}</h6>
+										<div class="price">
+											<h6>{{currency this.attrs.0.price}}</h6>
+										</div>
+										<div class="prd-bottom">
+											<div class="prd-bottom">
+												<a>
+												</a>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
+						</a>
 						{{/each}}
 					</div>
 				</section>

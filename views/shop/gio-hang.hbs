@@ -1,127 +1,143 @@
 <section class="banner-area organic-breadcrumb">
-        <div class="container">
-            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
-                <div class="col-first">
-                    <h1>Giỏ Hàng</h1>
-                </div>
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Giỏ Hàng</h1>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+{{#with cart}}
 <section class="cart_area">
     <div class="container">
         <div class="cart_inner">
             <div class="table-responsive">
+                {{#if items.length}}
                 <table class="table">
                     <thead>
                         <tr>
                             <th scope="col">Sản phẩm</th>
+                            <th scope="col">Kích cỡ</th>
                             <th scope="col">Giá</th>
                             <th scope="col">Số lượng</th>
                             <th scope="col">Thành tiền</th>
-                            <th scope="col">Xóa</th>
-                            <th scope="col">Update</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {{# each products}}
-                            <tr>
-                                 <form action="/update/{{this.item._id}}" method="post">
+                        {{#each items}}
+                        <tr id="item{{this.item._id}}">
+
                             <td>
                                 <div class="media">
                                     <div class="d-flex">
-                                        <img width="150px" height=" 150px" src="/upload/{{this.item.imagePath}}" alt="">
+                                        <img width="230px" src="{{this.item.mainImage}}" alt="{{this.item.slug}}">
                                     </div>
-                                        <div class="media-body">
-                                            <p>{{this.item.title}}</p>
-                                        </div>
+                                    <div class="media-body">
+                                        <p>{{this.item.name}}</p>
+                                    </div>
                                 </div>
                             </td>
-                                <td>
-                                    <h5>${{this.item.price}}</h5>
-                                </td>
-                                <td>
-                                    <div class="product_count">
-                                         
-                                        <div class="quantity">
-                                            <input id="{{this.item._id}}" name="sl" type="number" size="1" min="1"
-                                              style="width: 50px; padding: 3px 6px" value="{{this.sl}}">
-                                        </div>
+                            <td>
+                                <h5>{{this.size}}</h5>
+                            </td>
+                            <td>
+                                <h5>{{currency this.price}}</h5>
+                            </td>
+                            <td>
+                                <div class="product_count">
+                                    <div class="quantity">
+                                        <input id="sst{{this.item._id}}" name="qty" type="number" size="1" min="1"
+                                            max="{{this.item.attrs.0.stock}}" style="width: 80px; padding: 3px 6px"
+                                            value="{{this.quantity}}" readonly>
+                                        <button class="increase items-count" type="button" onclick="
+                                        var result = document.getElementById('sst{{this.item._id}}'); 
+                                        var sst = result.value;
+                                        if(!isNaN(sst)) 
+                                            result.value++;
+                                        updateCart('{{this.item._id}}',result.value);
+                                        return false;" 
+                                        id="btn_up">
+                                            <i class="lnr lnr-chevron-up"></i></button>
+                                        <button class="reduced items-count" type="button" onclick="
+                                        var result = document.getElementById('sst{{item._id}}');
+                                        var sst = result.value;
+                                        if(!isNaN(sst) &amp;&amp; sst > 1 || (sst == 1) &amp;&amp; confirm('Bạn có muốn xóa khỏi giỏ hàng không ?')) 
+                                            result.value--; 
+                                        updateCart('{{item._id}}',result.value); 
+                                        return false;
+                                        " id="btn_down"><i class="lnr lnr-chevron-down"></i></button>
                                     </div>
-                                </td>
-                                <td>
-                                    <h5>${{this.tien}}</h5>
-                                </td>
-                                <td>
-                                    <div class= "btn-group">
-                                        <button class="btn btn-info  height-auto btn-sm updateCart dropdown-toggle" data-toggle="dropdown" type="button">Xóa <span class="caret"></span></button>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="/remove/{{this.item._id}}">Xóa 1</a></li>
-                                             <li><a href="/delcart/{{this.item._id}}">Xóa hết</a></li>
-                                        </ul>
-                                    </div>
-                                </td>
-                                <td>
-                             <button type="submit" class=" btn btn-info height-auto btn-sm updateCart">Cập nhật</button>
-                             {{!-- <a href="/update/{{this.item._id}}"><img class="tooltip-test delCart" id="" data-original-title="Remove"  src="/img/remove.png" alt=""></a></td> --}}
-                                   </form>                  
-                            </tr>
+                                </div>
+                            </td>
+                            <td>
+                                <h5 id="price{{item._id}}">{{currency this.total}}</h5>
+                            </td>
+                        </tr>
+                        {{/each}}
+                        <tr class="bottom_button">
+                            <td>
+                                <a class="button primary-btn text-white" onclick="clearCart()"><i
+                                        class="far fa-trash-alt">Xóa Giỏ Hàng</i></a>
+                            </td>
+                            <td>
 
-                     
-                                   {{/ each}}   
-                          <tr class="bottom_button">
-                                <td>
-                                    
-                                    </td>
-                                    <td>
+                            </td>
 
-                                    </td>
-                          
-                                    <td>
-                                 <h5>Tổng thanh toán: </h5>
-                                    </td>
-                                    <td>
-                                     <h5>${{Tien}}</h5>
-                                    </td>
+                            <td>
+                                <h5>Tổng thanh toán: </h5>
+                            </td>
+                            <td>
+                                <h5 id="totalPrice">{{currency totalPrice}}</h5>
+                            </td>
 
-                                    <td>
-                                  
-                                    </td>
-                                    
-                                    <td>
-                                    </td>
-                            </tr>
-                              <tr class="out_button_area">
-                                    <td>
+                            <td>
 
-                                    </td>
-                                    <td>
+                            </td>
 
-                                    </td>
-                                    <td>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr class="out_button_area">
+                            <td>
 
-                                    </td>
-                                    <td>
+                            </td>
+                            <td>
 
-                                    </td>
-                                    <td>
+                            </td>
+                            <td>
 
-                                    </td>
-                                <td>
-                                    <div class="checkout_btn_inner d-flex align-items-center">
-                                        <a class="gray_btn" href="/">Tiếp tục mua sắm</a>
-                                        {{# if login}}
-                                        <a class="primary-btn" href="/thanh-toan">Thanh toán</a>
-                                        {{else}}
-                                        <a class="primary-btn" href="../user/login">Thanh toán</a>
-                                        {{/if}}
-                                    </div>
-                                </td>
-                            </tr>
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+                                <div class="checkout_btn_inner d-flex align-items-center">
+                                    <a class="gray_btn" href="/">Tiếp tục mua sắm</a>
+                                    {{# if login}}
+                                    <a class="primary-btn" href="/thanh-toan">Thanh toán</a>
+                                    {{else}}
+                                    <a class="primary-btn" href="../user/login">Thanh toán</a>
+                                    {{/if}}
+                                </div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
+                {{else}}
+                <div class="alert alert-info tex-center">Không có sản phẩm trong giỏ hàng</div>
+                {{/if}}
             </div>
         </div>
     </div>
 </section>
 
-   
+{{/with}}
+
+<script type="text/script">
+    $(document).ready(()=>{
+        console.log("ready")
+    })
+</script>
