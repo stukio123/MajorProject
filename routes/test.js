@@ -27,15 +27,29 @@ function createCategories(categories, parentId = null){
 
 };
 
-router.get("/", async (req,res,next)=>{
-    const categories = await Category.find({}).exec();
-    const products = await Product.find().limit(10).populate({path: 'category', select: '_id name slug'}).exec();
-    products.forEach(product => {
-        if(product.category && product.category.name == 'Lifestyle')
+router.get("/:slug", async (req,res,next)=>{
+    const slug = req.params.slug
+    let filter = {slug: {$gte: slug}}
+    // const categories = await Category.find({}).exec();
+    // const products = await Product.find().limit(10).populate({path: 'category', select: '_id name slug'}).exec();
+    // products.forEach(product => {
+    //     if(product.category && product.category.name == 'Lifestyle')
+    //     {
+    //         console.log(product.slug)
+    //     }
+    // })
+    const products = await Category.aggregate([
         {
-            console.log(product.slug)
+            $graphLookup: {
+                from: "categories",
+                startWith: "$_id",
+                connectFromField: "_id",
+                connectToField: "parentId",
+                as: "children"
+            }
         }
-    })
+    ])
+    console.log(products)
     res.status(200).json({
         products
     })

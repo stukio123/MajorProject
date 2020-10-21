@@ -18,8 +18,8 @@ router.get('/danh-sach', isLoggedIn, function(req, res, next) {
 
 router.get('/:id/xem-cart', isLoggedIn, function(req, res, next) {
     var id = req.params.id;
-    Order.findById(id).then(function(dl){
-        res.render('admin/cart/view', {pro: dl ,layout: false });
+    Order.findById(id).then(function(result){
+        res.render('admin/cart/view', {Order: result ,layout: false });
    });
 });
 

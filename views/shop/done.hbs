@@ -30,16 +30,16 @@
 							            </tr>
 						            </thead>
 						    <tbody>
-                                 {{# each products}}
+                                 {{#each products}}
 							<tr>
 								<td>
-									<p>{{this.item.title}}</p>
+									<p>{{this.item.name}}</p>
 								</td>
 								<td>
-									<h5>x {{this.sl}}</h5>
+									<h5>x {{this.quantity}}</h5>
 								</td>
 								<td>
-									<p>${{this.tien}}</p>
+									<p>{{currency this.total}}</p>
 								</td>
 							</tr>
                             {{/each}}
@@ -51,7 +51,7 @@
 									<h5></h5>
 								</td>
 								<td>
-									<p>${{Tong}}</p>
+									<p>{{currency Tong}}</p>
 								</td>
 							</tr>
 							{{!-- <tr>

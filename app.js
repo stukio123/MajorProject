@@ -16,6 +16,7 @@ const flash = require("connect-flash");
 const MongoStore = require("connect-mongo")(session);
 const validator = require("express-validator");
 const mongodb = require("mongoose");
+const moment = require("moment")
 require("dotenv").config();
 require("./models/database");
 require("./config/passport");
@@ -27,6 +28,7 @@ const adminRouter = require("./routes/admin");
 const categoryRouter = require("./routes/category");
 const userAdminRouter = require("./routes/userAdmin");
 const testRouter = require("./routes/test");
+const cartRouter = require("./routes/cart");
 const Cart = require("./models/cart");
 
 const app = express();
@@ -46,6 +48,12 @@ const hbs = expressHbs.create({
       } else {
         return false;
       }
+    },
+    date: (date, format) => {
+      console.log("tracking handlebars"+date)
+      var mmnt = moment(date);
+      mmnt.locale('vi')
+      return mmnt.format(format).toString();
     },
     test: (arg1, arg2) => {
       console.log(arg1);
@@ -106,6 +114,7 @@ app.use("/admin", adminRouter);
 app.use("/admin/cate", categoryRouter);
 app.use("/admin/product", productRouter);
 app.use("/admin/user", userAdminRouter);
+app.use("/admin/cart", cartRouter);
 app.use("/test", testRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

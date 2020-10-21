@@ -45,6 +45,29 @@ router.post("/gio-hang", ThemGioHang);
 //Trang thanh toán
 router.get("/thanh-toan", isLoggedIn, ThanhToan);
 
+//Tiến hành thanh toán
+router.post("/thanh-toan", isLoggedIn, (req, res, next) => {
+  var cart = new Cart(req.session.cart);
+  var data = cart.generateArray();
+  var Tong = cart.totalPrice
+
+  var order = new Order({
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    tel: req.body.tel,
+    address: req.body.address +", "+req.body.city,
+    cart: data,
+    totalPrice: cart.totalPrice,
+  });
+
+  order.save().then(function () {
+    req.session.cart = cart.empty();
+    console.log(data)
+    res.render("shop/done", { products: data, Tong: Tong });
+  });
+});
+
 //Thông tin giỏ hàng
 router.get("/gio-hang", isLoggedIn, GioHang);
 
@@ -56,21 +79,6 @@ router.delete("/gio-hang", XoaGioHang);
 
 //Xóa tất cả sản phẩm
 router.delete("/gio-hang/all", XoaTatCa);
-
-// router.get("/them-vao-gio-hang/:id", function (req, res, next) {
-//   var productId = req.params.id;
-//   var cart = new Cart(req.session.cart ? req.session.cart : {});
-//   Product.findById({ productId }, function (err, product) {
-//     if (err) {
-//       return res.redirect("/");
-//     }
-//     console.log(product);
-//     cart.add(product, product.id);
-//     req.session.cart = cart;
-//     console.log(req.session.cart);
-//     res.redirect("/gio-hang");
-//   });
-// });
 
 module.exports = router;
 

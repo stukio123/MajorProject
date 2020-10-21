@@ -108,10 +108,10 @@
                             </a>
                             <ul class="sub-menu" >
                                 <li>
-                                    <a class="" href="/admin/cate/danh-sach.html"  >Danh Sách</a>
+                                    <a class="" href="/admin/cate/danh-sach"  >Danh Sách</a>
                                 </li>
                                 <li>
-                                    <a class="" href="/admin/cate/them-cate.html"  >Thêm</a>
+                                    <a class="" href="/admin/cate/them-cate"  >Thêm</a>
                                 </li>
                             </ul>
                         </li>
@@ -123,10 +123,10 @@
                             </a>
                             <ul class="sub-menu" >
                                 <li>
-                                    <a class="" href="/admin/product/danh-sach.html"  >Danh Sách</a>
+                                    <a class="" href="/admin/product/danh-sach"  >Danh Sách</a>
                                 </li>
                                 <li>
-                                    <a class="" href="/admin/product/them-product.html"  >Thêm</a>
+                                    <a class="" href="/admin/product/them-product"  >Thêm</a>
                                 </li>
                             </ul>
                         </li>
@@ -139,7 +139,7 @@
                             </a>
                             <ul class="sub-menu" >
                                 <li>
-                                    <a class="" href="/admin/cart/danh-sach.html"  >Danh Sách</a>
+                                    <a class="" href="/admin/cart/danh-sach"  >Danh Sách</a>
                                 </li>
                             </ul>
                         </li>
@@ -151,7 +151,7 @@
                             </a>
                             <ul class="sub-menu" >
                                 <li>
-                                    <a class="" href="/admin/user/danh-sach.html"  >Danh Sách</a>
+                                    <a class="" href="/admin/user/danh-sach"  >Danh Sách</a>
                                 </li>
                             </ul>
                         </li>
@@ -193,20 +193,20 @@
                                      {{/if}}
                                      <div class="row" style="padding-left: 50px;">
                                        <div>
-                                           <p><strong>Tên: </strong>{{pro.firstname}} {{pro.lastname}} </p>
+                                           <p><strong>Tên: </strong>{{Order.firstName}} {{Order.lastName}} </p>
                                        </div>
                                        <div>
-                                           <p><strong>Số điện thoại: </strong> {{pro.phone}} </p>
+                                           <p><strong>Số điện thoại: </strong> {{Order.tel}} </p>
                                        </div>
                                        <div>
-                                           <p><strong>Email: </strong> {{pro.email}} </p>
+                                           <p><strong>Email: </strong> {{Order.email}} </p>
                                        </div>
                                        <div>
-                                           <p><strong>Địa chỉ: </strong> {{pro.diachi}} </p>
+                                           <p><strong>Địa chỉ: </strong> {{Order.address}} </p>
                                        </div>
-                                       <div>
+                                       {{!-- <div>
                                            <p><strong>Thành phố: </strong> {{pro.thanhpho}} </p>
-                                       </div>
+                                       </div> --}}
                                    </div>
                                     <div class="col-xs-12">
                                         <!-- ********************************************** -->
@@ -221,13 +221,13 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                 {{# each pro.cart }}
+                                                 {{#each Order.cart }}
                                                 <tr>
                                                     <td>1</td>
-                                                    <td>{{this.item.title}}</td>
-                                                    <td><img src="/upload/{{this.item.imagePath}}" width="100px" alt=""></td>
-                                                    <td>{{this.sl}}</td>
-                                                    <td>${{this.tien}}</td>
+                                                    <td>{{this.item.name}}</td>
+                                                    <td><img src="{{this.item.mainImage}}" width="170px" alt="{{this.item.slug}}"></td>
+                                                    <td>{{this.quantity}}</td>
+                                                    <td>{{currency this.total}}</td>
                                                 </tr>
                                                 {{/each}}
                                                     </tbody>
@@ -238,16 +238,14 @@
                                                             <span>Đã Thanh Toán</span>
                                                             
                                                         {{else}}
-                                                            <a href="/admin/cart/{{pro._id}}/thanh-toan-cart.html">Thanh Toán</a>
+                                                            <a href="/admin/cart/{{Order._id}}/thanh-toan-cart">Thanh Toán</a>
                                                         {{/if}}  | 
-                                                        <a href="/admin/cart/{{pro._id}}/xoa-cart.html">Xoá</a>
+                                                        <a href="/admin/cart/{{Order._id}}/xoa-cart">Xoá</a>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="5">
-                                                        {{# pro}}
-                                                        <p><strong style="color:red">Tồng Tiền: </strong>${{this.Tien}}</p>
-                                                        {{/pro}}
+                                                        <p><strong style="color:red">Tồng Tiền: </strong>{{currency Order.totalPrice}}</p>
                                                     </td>
                                                     </tr>
                                        
