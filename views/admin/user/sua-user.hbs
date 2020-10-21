@@ -108,10 +108,10 @@
                             </a>
                             <ul class="sub-menu" >
                                 <li>
-                                    <a class="" href="/admin/cate/danh-sach.html"  >Danh Sách</a>
+                                    <a class="" href="/admin/cate/danh-sach"  >Danh Sách</a>
                                 </li>
                                 <li>
-                                    <a class="" href="/admin/cate/them-cate.html"  >Thêm</a>
+                                    <a class="" href="/admin/cate/them-cate"  >Thêm</a>
                                 </li>
                             </ul>
                         </li>
@@ -123,10 +123,10 @@
                             </a>
                             <ul class="sub-menu" >
                                 <li>
-                                    <a class="" href="/admin/product/danh-sach.html"  >Danh Sách</a>
+                                    <a class="" href="/admin/product/danh-sach"  >Danh Sách</a>
                                 </li>
                                 <li>
-                                    <a class="" href="/admin/product/them-product.html"  >Thêm</a>
+                                    <a class="" href="/admin/product/them-product"  >Thêm</a>
                                 </li>
                             </ul>
                         </li>
@@ -139,7 +139,7 @@
                             </a>
                             <ul class="sub-menu" >
                                 <li>
-                                    <a class="" href="/admin/cart/danh-sach.html"  >Danh Sách</a>
+                                    <a class="" href="/admin/cart/danh-sach"  >Danh Sách</a>
                                 </li>
                             </ul>
                         </li>
@@ -151,7 +151,7 @@
                             </a>
                             <ul class="sub-menu" >
                                 <li>
-                                    <a class="" href="/admin/user/danh-sach.html"  >Danh Sách</a>
+                                    <a class="" href="/admin/user/danh-sach"  >Danh Sách</a>
                                 </li>
                             </ul>
                         </li>
@@ -192,22 +192,22 @@
                                      {{/if}}
                                    <div class="row" style="padding-left: 50px;">
                                        <div>
-                                           <p><strong>Họ: </strong>{{dataa.firstname}} </p>
+                                           <p><strong>Họ: </strong>{{user.firstName}} </p>
                                        </div>
                                        <div>
-                                           <p><strong>Tên đệm và tên: </strong>{{dataa.lastname}} </p>
+                                           <p><strong>Tên đệm và tên: </strong>{{user.lastName}} </p>
                                        </div>
                                        <div>
-                                           <p><strong>Username </strong>{{dataa.username}}</p>
+                                           <p><strong>Số điện thoại: </strong> {{user.tel}} </p>
                                        </div>
                                        <div>
-                                           <p><strong>Số điện thoại: </strong> {{dataa.phone}} </p>
+                                           <p><strong>Địa chỉ </strong> {{user.address.0.street}}, {{user.address.0.ward}}, {{user.address.0.district}}, {{user.address.0.city}} </p>
                                        </div>
                                        <div>
-                                           <p><strong>Email: </strong> {{dataa.email}} </p>
+                                           <p><strong>Email: </strong> {{user.email}} </p>
                                        </div>
                                        <div>
-                                           <p><strong>Chức vụ: </strong> {{dataa.roles}} </p>
+                                           <p><strong>Chức vụ: </strong> {{user.role}} </p>
                                        </div>
                                     </div>
                                 <form action ="" method="post">
@@ -216,14 +216,17 @@
                                             <label class="form-label" for="field-120334">Chức vụ</label>
                                             <span class="desc"></span>
                                             <div class="controls">
-                                                <input type="text" id="name" value="{{dataa.roles}}" class="form-control" name="roles">
+                                                <input type="text" id="name" value="{{role}}" class="form-control" name="roles">
+                                                <select>
+                                                    <option></option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
                                         <div class="text-left">
                                             <button type="submit" class="btn btn-info">Lưu</button>
-                                            <a href="/admin/user/danh-sach.html" type="button" class=" btn " class="btn">Quay Lại</a>
+                                            <a href="/admin/user/danh-sach" type="button" class="btn" class="btn">Quay Lại</a>
                                         </div>
                                     </div>
                                 </form>

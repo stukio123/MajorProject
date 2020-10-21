@@ -306,8 +306,9 @@
                                             <span class="desc"></span>
                                             <div class="controls">
                                                 <select class="form-control" id="cate" name="cate">
+                                                    <option>Chọn danh mục của giày</option>
                                                     {{#each cate}}
-                                                    {{#if (ifEqual this._id ../product.categoryId)}}
+                                                    {{#if (ifEqual this._id ../product.category)}}
                                                     <option selected key="{{this._id}}" value="{{this._id}}">
                                                         {{this.name}}</option>
                                                     {{else}}
@@ -435,7 +436,7 @@
 
         var imagesURL = []
 
-        window.addEventListener('fileUploadWithPreview:imagesAdded', function (e) {
+        window.addEventListener('fileUploadWithPreview:imagesAdded',async function (e) {
             console.log(e)
             if (e.detail.uploadId === "myUniqueUploadId") {
                 const regex = new RegExp(/(\w?\:?\\?[\w\-_ \\]*\\+)?([\w-_ ]+)?(\.[\w-_ ]+)/, 'i');
@@ -445,7 +446,7 @@
                         let regName = i.name.match(regex)[0]
                         i.name = regName.slice(2, regName.length)
                     }
-                    uploadFile(i)
+                    await uploadFile(i)
                 }
             }
         })
@@ -517,12 +518,12 @@
             console.log(product)
             $.post("./sua-product", product, (data, status) => {
                 console.log(status)
-                if (status == "success") {
-                    alert("Thêm thành công !")
-                    location.assign("./danh-sach")
+                if (status === "success") {
+                    alert("Sửa thành công !")
+                    location.assign("/admin/product/danh-sach")
                 }
                 else {
-                    alert("Thêm thật bại" + status)
+                    alert("Sửa thật bại" + status)
                 }
             })
         }

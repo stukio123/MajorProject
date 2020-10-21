@@ -242,7 +242,7 @@
     <!-- END CORE TEMPLATE JS - END -->
     <!-- General section box modal start -->
     <script>
-        var prodcuts = {{{ convert product }}}
+        var product = {{{ convert product }}}
         var col = [
             { title: 'STT' },
             { title: "Mã Sản Phẩm", field: "_id", width: 'fit' },
@@ -263,7 +263,7 @@
         $('#example').bootstrapTable({
             columns: col,
             idField: '_id',
-            data: prodcuts,
+            data: product,
         })
     </script>
     <script>

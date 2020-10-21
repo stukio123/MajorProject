@@ -55,8 +55,7 @@
                                         if(!isNaN(sst)) 
                                             result.value++;
                                         updateCart('{{this.item._id}}',result.value);
-                                        return false;" 
-                                        id="btn_up">
+                                        return false;" id="btn_up">
                                             <i class="lnr lnr-chevron-up"></i></button>
                                         <button class="reduced items-count" type="button" onclick="
                                         var result = document.getElementById('sst{{item._id}}');
@@ -116,7 +115,7 @@
                             <td>
                                 <div class="checkout_btn_inner d-flex align-items-center">
                                     <a class="gray_btn" href="/">Tiếp tục mua sắm</a>
-                                    {{# if login}}
+                                    {{#if login}}
                                     <a class="primary-btn" href="/thanh-toan">Thanh toán</a>
                                     {{else}}
                                     <a class="primary-btn" href="../user/login">Thanh toán</a>
@@ -135,9 +134,3 @@
 </section>
 
 {{/with}}
-
-<script type="text/script">
-    $(document).ready(()=>{
-        console.log("ready")
-    })
-</script>

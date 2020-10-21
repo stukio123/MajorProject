@@ -1,42 +1,17 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 
-var user = require("../models/user.js");
+const { GetListUser, GetOneUserById, EditOneUserById, DeleteOneUserById } = require("../controllers/userAdminController")
 
-router.get("/", isLoggedIn, function (req, res, next) {
-  res.redirect("/admin/user/danh-sach", { layout: false });
-});
+router.get("/", isLoggedIn, GetListUser);
 
-router.get("/danh-sach", isLoggedIn, function (req, res, next) {
-  user.find().then(function (data) {
-    console.log(data);
-    res.render("admin/user/danh-sach", { us: data, layout: false });
-  });
-});
+router.get("/danh-sach", isLoggedIn, GetListUser);
 
-router.get("/:id/sua-user", isLoggedIn, function (req, res, next) {
-  var id = req.params.id;
-  user.findById(id).then(function (data) {
-    res.render("admin/user/sua-user", { dataa: data, layout: false });
-  });
-});
+router.get("/:id/sua-user", isLoggedIn, GetOneUserById);
 
-router.post("/:id/sua-user", isLoggedIn, function (req, res, next) {
-  user.findById(req.params.id, function (err, data) {
-    data.roles = req.body.roles;
-    data.save();
-    req.flash("succsess_msg", "Đã Sửa Thành Công");
-    res.redirect("/admin/user/" + req.params.id + "/sua-user");
-  });
-});
+router.post("/:id/sua-user", isLoggedIn, EditOneUserById);
 
-router.get("/:id/xoa-user", isLoggedIn, function (req, res, next) {
-  var id = req.params.id;
-  user.findOneAndRemove({ _id: id }, function (err, offer) {
-    req.flash("succsess_msg", "Đã Xoá Thành Công");
-    res.redirect("/admin/user/danh-sach");
-  });
-});
+router.get("/:id/xoa-user", isLoggedIn, DeleteOneUserById);
 
 module.exports = router;
 

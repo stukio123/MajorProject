@@ -55,7 +55,7 @@ usersSchema.virtual('fullName').get(function(){
 })
 
 usersSchema.virtual('Addresses').get(function(){
-    return `${this.street}, ${this.ward}, ${this.district},${this.City}`
+    return `${this.address.street}, ${this.address.ward}, ${this.address.district},${this.address.City}`
 })
 
 usersSchema.methods = {

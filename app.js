@@ -25,7 +25,8 @@ const usersRouter = require("./routes/users");
 const productRouter = require("./routes/product");
 const adminRouter = require("./routes/admin");
 const categoryRouter = require("./routes/category");
-const cartRouter = require("./routes/cart");
+const userAdminRouter = require("./routes/userAdmin");
+const testRouter = require("./routes/test");
 const Cart = require("./models/cart");
 
 const app = express();
@@ -40,11 +41,10 @@ const hbs = expressHbs.create({
       }).format(value);
     },
     ifEqual: (arg1, arg2, options) => {
-      if (arg1 == arg2) {
-        console.log(arg1 == arg2);
-        return true; //options.inverse(this);
+      if (arg1 && arg2) {
+        return arg1.toString() === arg2.toString();
       } else {
-        return false; //options.fn(this);
+        return false;
       }
     },
     test: (arg1, arg2) => {
@@ -95,6 +95,7 @@ app.use((req, res, next) => {
   res.locals.login = req.isAuthenticated();
   res.locals.session = req.session;
   res.locals.succsess_msg = req.flash("succsess_msg");
+  //res.locals.hasErrors = req.flash("hasError");
   res.locals.currentUser = req.user;
   next();
 });
@@ -104,6 +105,8 @@ app.use("/user", usersRouter);
 app.use("/admin", adminRouter);
 app.use("/admin/cate", categoryRouter);
 app.use("/admin/product", productRouter);
+app.use("/admin/user", userAdminRouter);
+app.use("/test", testRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
