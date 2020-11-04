@@ -26,9 +26,19 @@ router.get('/:id/xem-cart', isLoggedIn, function(req, res, next) {
 router.get('/:id/thanh-toan-cart', isLoggedIn, function(req, res, next) {
     var id = req.params.id;
     Order.findById(id, function(err, data){
-        data.st = 1;
+        data.status = "Đã Thanh Toán";
         data.save();
         req.flash('succsess_msg', 'Đã Thanh Toán');
+       res.redirect('/admin/cart/'+id+'/xem-cart');
+    });
+});
+
+router.get('/:id/da-giao-hang', isLoggedIn, function(req, res, next) {
+    var id = req.params.id;
+    Order.findById(id, function(err, data){
+        data.status = "Đã Giao Hàng";
+        data.save();
+        req.flash('succsess_msg', 'Đã Giao Hàng');
        res.redirect('/admin/cart/'+id+'/xem-cart');
     });
 });

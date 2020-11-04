@@ -200,49 +200,7 @@
                                     <div class="col-xs-12" id="example-table">
                                         <!-- ********************************************** -->
                                         <table id="example" class="display table table-hover table-condensed" data-search="true">
-                                            {{!-- <thead>
-                                                <tr>
-                                                    <th data-field="id">#</th>
-                                                    <th>STT</th>
-                                                    <th data-field="name">Tên</th>
-                                                    <th>Hành động</th>
-                                                </tr>
-                                            </thead> --}}
                                         </table>
-                                        {{!-- <table id="example" class="display table table-hover table-condensed">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>STT</th>
-                                                    <th>Tên</th>
-                                                    <th>Hành động</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {{#each cate}}
-                                                <tr>
-                                                    <td>Button</td>
-                                                    <td>1</td>
-                                                    <td>{{this.name}}</td>
-                                                    <td>
-                                                        <a href="/admin/cate/{{this._id}}/xoa-cate">Xoá</a> |
-                                                        <a href="/admin/cate/{{this._id}}/sua-cate">Sửa</a>
-                                                    </td>
-                                                </tr>
-                                                {{#each children}}
-                                                <tr>
-                                                    <td>Button</td>
-                                                    <td>1</td>
-                                                    <td>{{this.name}}</td>
-                                                    <td>
-                                                        <a href="/admin/cate/{{this._id}}/xoa-cate">Xoá</a> |
-                                                        <a href="/admin/cate/{{this._id}}/sua-cate">Sửa</a>
-                                                    </td>
-                                                </tr>
-                                                {{/each}}
-                                                {{/each}}
-                                            </tbody> 
-                                        </table>--}}
                                         <!-- ********************************************** -->
                                     </div>
                                 </div>
@@ -290,7 +248,7 @@
         ]
 
         function actionFormatter(value, row, index) {
-            return `<a href=\"/admin/cate/${row._id}/xoa-cate\">Xoá</a> | <a href=\"/admin/cate/${row._id}/sua-cate\">Sửa</a>`
+            return `<a href=\"/admin/cate/${row._id}/xoa-cate\" class="confirmation">Xoá</a> | <a href=\"/admin/cate/${row._id}/sua-cate\">Sửa</a>`
         }
 
 
@@ -313,6 +271,11 @@
                     })
                 }
             }
+        })
+    </script>
+    <script>
+        $('.confirmation').on('click', function(){
+            return confirm("Bạn chắc chứ ?");
         })
     </script>
     <script>

@@ -90,7 +90,7 @@
                     </div>
                     <div class="profile-details col-xs-8">
                         <h3>
-                            <a class="name">{{user.email}}</a>
+                            <a class="name">{{user.fullName}}</a>
                             <!-- Available statuses: online, idle, busy, away and offline -->
                             <span class="profile-status online"></span>
                         </h3>
@@ -203,31 +203,6 @@
                                             data-search="true" data-pagination="true" data-pagination-h-align="left"
                                             data-pagination-detail-h-align="right" data-pagination-pre-text="Previous"
                                             data-pagination-next-text="Next" data-side-pagination="client">
-                                            {{!-- <thead>
-                                                <tr>
-                                                    <th>STT</th>
-                                                    <th>Tên</th>
-                                                    <th>Ngày đặt hàng</th>
-                                                    <th>Hành động</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {{#each data}}
-                                                <tr>
-
-                                                    <td>1</td>
-                                                    <td>{{this.firstName}} {{this.lastName}}</td>
-                                                    <td>
-                                                        {{date this.createdAt "LLLL"}}
-                                                    </td>
-
-                                                    <td>
-                                                        <a href="/admin/cart/{{this._id}}/xem-cart">Xem</a> |
-                                                        <a href="/admin/cart/{{this._id}}/xoa-cart">Xóa</a>
-                                                    </td>
-                                                </tr>
-                                                {{/each}}
-                                            </tbody> --}}
                                         </table>
                                         <!-- ********************************************** -->
                                     </div>
@@ -277,7 +252,7 @@
             { title: "Hành động", formatter: 'actionFormatter' }
         ]
         function actionFormatter(value, row, index) {
-            return `<a href=\"/admin/cart/${row._id}/xem-cart\">Sửa</a> | <a href=\"/admin/cart/${row._id}/xoa-cart\">Xóa</a>`
+            return `<a href=\"/admin/cart/${row._id}/xem-cart\">Sửa</a> | <a href=\"/admin/cart/${row._id}/xoa-cart\" class="confirmation">Xóa</a>`
         }
 
         function dateFormatter(value,row,index){
@@ -289,6 +264,11 @@
             columns: col,
             idField: '_id',
             data: orders,
+        })
+    </script>
+    <script>
+        $('.confirmation').on('click', function(){
+            return confirm("Bạn chắc chứ ?");
         })
     </script>
     <script>

@@ -8,12 +8,12 @@ exports.TrangChu = (req, res, next) => {
     .limit(8)
     .lean()
     .then(function (product) {
-      res.render("shop/index", { products: product });
+      res.render("shop/index", { products: product, login: req.session.user ? true : false });
     });
 };
 
 exports.DanhMuc = (req, res, next) => {
-  Product.find({}).then(function (product) {
+  Product.find({}).limit(15).then(function (product) {
     Category.find({}).then(function (cate) {
       res.render("shop/san-pham", { products: product, cates: cate });
     });

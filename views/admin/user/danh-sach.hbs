@@ -255,7 +255,7 @@
         ]
 
         function actionFormatter(value, row, index) {
-            return `<a href=\"/admin/user/${row._id}/sua-user\">Sửa</a> | <a href=\"/admin/user/${row._id}/xoa-user\">Xóa</a>`
+            return `<a href=\"/admin/user/${row._id}/sua-user\">Sửa</a> | <a href=\"/admin/user/${row._id}/xoa-user\" class="confirmation">Xóa</a>`
         }
 
 
@@ -263,6 +263,11 @@
             columns: col,
             idField: '_id',
             data: user,
+        })
+    </script>
+    <script>
+        $('.confirmation').on('click', function(){
+            return confirm("Bạn chắc chứ ?");
         })
     </script>
     <script>

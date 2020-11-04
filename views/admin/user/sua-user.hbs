@@ -216,9 +216,23 @@
                                             <label class="form-label" for="field-120334">Chức vụ</label>
                                             <span class="desc"></span>
                                             <div class="controls">
-                                                <input type="text" id="name" value="{{role}}" class="form-control" name="roles">
-                                                <select>
-                                                    <option></option>
+                                                {{!-- <input type="text" id="name" value="{{role}}" class="form-control" name="roles"> --}}
+                                                <select name="role">
+                                                    {{#if (ifEqual ./user.role "Quản Trị")}}
+                                                    <option id="{{use.role}}" value="{{user.role}}" selected>Quản Lý</option>
+                                                    <option id="Nhân Viên" value="Nhân Viên">Nhân Viên</option>
+                                                    <option id="Khách Hàng" value="Khách Hàng">Khách Hàng</option>
+                                                    {{else}}
+                                                        {{#if (ifEqual ./user.role "Nhân Viên")}}
+                                                        <option id="{{role}}" value="{{role}}" selected>Nhân Viên</option>
+                                                        <option id="Khách Hàng" value="Khách Hàng">Khách Hàng</option>
+                                                        <option id="Quản Lý" value="Quản Trị">Quản Lý</option>
+                                                        {{else}}
+                                                        <option id="{{role}}" value="{{role}}" selected>Khách Hàng</option>
+                                                        <option id="Quản Lý" value="Quản Trị">Quản Lý</option>
+                                                        <option id="Nhân Viên" value="Nhân Viên">Nhân Viên</option>
+                                                        {{/if}}
+                                                    {{/if}}
                                                 </select>
                                             </div>
                                         </div>

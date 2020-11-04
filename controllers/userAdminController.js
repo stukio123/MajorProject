@@ -10,7 +10,6 @@ exports.GetListUser = (req, res, next) => {
 exports.GetOneUserById = (req, res, next) => {
   var id = req.params.id;
   User.findById(id).then((user) => {
-    console.log(user.Addresses);
     res.render("admin/user/sua-user", { user: user, layout: false });
   });
 };

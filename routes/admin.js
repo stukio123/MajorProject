@@ -1,54 +1,37 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-var passport = require('passport');
+var passport = require("passport");
 
-
-
-router.get('/', isLoggedIn, function(req, res, next){
-  res.render('admin/main/index', {layout: false});
- });
-
- router.get('/logout', isLoggedIn, function(req, res, next){
-  req.logout();
-  res.redirect('/admin/login');
+router.get("/", isLoggedIn, function (req, res, next) {
+  res.render("admin/main/index", { layout: false });
 });
- 
+
+router.get("/logout", isLoggedIn, function (req, res, next) {
+  req.logout();
+  req.session.user = null;
+  req.flash("succsess_msg", "Bạn đã đăng xuất");
+  req.session.destroy(); 
+  res.redirect("/");
+});
 
 
-router.get('/login', notisLoggedIn ,function(req, res, next){
-  var messages = req.flash('error');
-  res.render('admin/login/login_ad', { messages: messages, hasErrors: messages.length > 0,
-    layout: false
-  });
- });
-
-router.post('/login', passport.authenticate('local.login_ad',{
-  successRedirect: '/admin',
-  failureRedirect: '/admin/login',
-  failureFlash: true
-}));
-
- 
 module.exports = router;
 
 // Hàm được sử dụng để kiểm tra đã login hay chưa
 function isLoggedIn(req, res, next) {
-  if(req.isAuthenticated() && req.user.role === 'Quản Trị' ){
+  if (req.isAuthenticated() && req.user.role === "Quản Trị") {
     return next();
-  } else
-  res.redirect('/');
-};
+  } else res.redirect("/");
+}
 
 function notisLoggedIn(req, res, next) {
-    if(!req.isAuthenticated()){
+  if (!req.isAuthenticated()) {
+    return next();
+  } else {
+    if (req.isAuthenticated() && req.user.role !== "Quản Trị") {
       return next();
     } else {
-        if(req.isAuthenticated() && req.user.role !== 'Quản Trị' ){
-            return next();
-        } else {
-            res.redirect('/admin'); 
-        }
-    } 
-  };
-
- 
+      res.redirect("/admin");
+    }
+  }
+}

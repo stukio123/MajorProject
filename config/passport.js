@@ -2,9 +2,11 @@ var passport = require("passport");
 var User = require("../models/user");
 var LocalStrategy = require("passport-local").Strategy;
 
+
 passport.serializeUser((user, done) => {
   done(null, user._id);
 });
+
 
 passport.deserializeUser((id, done) => {
   User.findById(id, (err, user) => {
@@ -65,7 +67,7 @@ passport.use('local.registration', new LocalStrategy({
   });
 }));
 
-//login
+//đăng nhập
 passport.use(
   "local.login",
   new LocalStrategy(
@@ -103,56 +105,6 @@ passport.use(
           return done(null, false, { message: "Sai mật khẩu." });
         }
         req.session.user = user ? true : false;
-        return done(null, user);
-      });
-    }
-  )
-);
-
-//login admin
-passport.use(
-  "local.login_ad",
-  new LocalStrategy(
-    {
-      usernameField: "email",
-      passwordField: "password",
-      passReqToCallback: true,
-    },
-    function (req, email, password, done) {
-      req
-        .checkBody(
-          "email",
-          "Địa chỉ email không hợp lệ vui, lòng kiểm tra lại."
-        )
-        .notEmpty()
-        .isEmail();
-      req.checkBody("password", "Mật khẩu không hợp lệ.").notEmpty();
-
-      var errors = req.validationErrors();
-      if (errors) {
-        var messages = [];
-        errors.forEach(function (error) {
-          messages.push(error.msg);
-        });
-        return done(null, false, req.flash("error", messages));
-      }
-
-      User.findOne({ email: email }, function (err, user) {
-        if (err) {
-          return done(err);
-        }
-        if (!user) {
-          return done(null, false, { message: "Không tìm thấy người dùng." });
-        }
-        if (!user.authenticate(password)) {
-          return done(null, false, { message: "Sai mật khẩu." });
-        }
-        if (!user.isGroupAdmin(user.role)) {
-          return done(null, false, {
-            message:
-              "Bạn không có quyền đăng nhập vào trang administrator, vui lòng quay lạy trang chủ.",
-          });
-        }
         return done(null, user);
       });
     }

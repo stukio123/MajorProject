@@ -61,6 +61,7 @@ router.get("/login", function (req, res, next) {
     hasErrors: messages.length > 0,
   });
 });
+
 router.post(
   "/login",
   passport.authenticate("local.login", {

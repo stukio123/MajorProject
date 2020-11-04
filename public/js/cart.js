@@ -23,6 +23,7 @@ function addToCart() {
       data: { id, quantity, size, price },
       success: function (result) {
         $(".ti-bag").html(result.totalQuantity);
+        alert("Thêm vào giỏ hàng thành công");
         console.log(result);
       },
     });

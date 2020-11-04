@@ -10,7 +10,7 @@ const cartSchema = new mongoose.Schema(
     cart: Object,
     status: {
       type: String,
-      enum: ["Chưa Thanh Toán", "Đã Xác Nhận", "Đã Thanh Toán"],
+      enum: ["Chưa Thanh Toán", "Đã Giao Hàng", "Đã Thanh Toán"],
       default: "Chưa Thanh Toán",
     },
     totalPrice: { type: Number },
