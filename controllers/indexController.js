@@ -13,7 +13,8 @@ exports.TrangChu = (req, res, next) => {
 };
 
 exports.DanhMuc = (req, res, next) => {
-  Product.find({}).limit(15).then(function (product) {
+  let keyword = req.query.keyword;
+  Product.find({name: new RegExp(keyword, "i")}).limit().then(function (product) {
     Category.find({}).then(function (cate) {
       res.render("shop/san-pham", { products: product, cates: cate });
     });
@@ -22,10 +23,8 @@ exports.DanhMuc = (req, res, next) => {
 
 exports.TimSanPham = (req, res, next) => {
   var find = req.body.find;
-  console.log(find);
   Category.find().then(function (cate) {
     Product.find({ name: new RegExp(find, "i") }, function (err, result) {
-      //res.redirect("./san-pham")
       res.render("shop/san-pham", { products: result, cates: cate });
     });
   });

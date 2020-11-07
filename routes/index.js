@@ -36,6 +36,8 @@ router.post("/cate/:name", TimSanPham);
 //Trang chi tiết Sản phẩm
 router.get("/chi-tiet/:slug", ChiTiet);
 
+router.post("/chi-tiet/:slug", TimSanPham);
+
 //Lọc sản phẩm theo Danh Mục
 router.get("/cate/:slug", LocSanPham);
 
